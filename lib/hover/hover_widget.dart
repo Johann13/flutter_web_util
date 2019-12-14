@@ -1,34 +1,38 @@
-import 'package:flutter/material.dart';
-// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
+
+import 'package:flutter/material.dart';
 
 typedef HoverBuilder<T> = Widget Function(BuildContext context, T value);
 
-
+/// The body tag need the id of 'app-container'!
 class MousePointer extends StatefulWidget {
   final Widget child;
   final String hoverPointer;
 
-  const MousePointer({Key key,@required this.child, this.hoverPointer}) : super(key: key);
+  const MousePointer({Key key, @required this.child, this.hoverPointer})
+      : super(key: key);
+
   @override
   _MousePointerState createState() => _MousePointerState();
 }
 
 class _MousePointerState extends State<MousePointer> {
-  static final _appContainer = html.window.document.getElementById('app-container');
+  static final _appContainer =
+      html.window.document.getElementById('app-container');
+
   @override
-  Widget build(BuildContext context) {return MouseRegion(
-    onExit: (e) {
-      _appContainer.style.cursor='default';
-    },
-    onEnter: (e) {
-      _appContainer.style.cursor =widget.hoverPointer??'pointer';
-    },
-    child: widget.child,
-  );
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onExit: (e) {
+        _appContainer.style.cursor = 'default';
+      },
+      onEnter: (e) {
+        _appContainer.style.cursor = widget.hoverPointer ?? 'pointer';
+      },
+      child: widget.child,
+    );
   }
 }
-
 
 class HoverWidget<T> extends StatefulWidget {
   final T value;
@@ -41,17 +45,17 @@ class HoverWidget<T> extends StatefulWidget {
     @required this.value,
     @required this.hoverValue,
     @required this.builder,
-    this.hoverPointer='pointer',
+    this.hoverPointer = 'pointer',
   }) : super(key: key);
 
   @override
   _HoverWidgetState<T> createState() => _HoverWidgetState<T>();
 }
 
-
 class _HoverWidgetState<T> extends State<HoverWidget<T>> {
   bool _hover = false;
-  static final _appContainer = html.window.document.getElementById('app-container');
+  static final _appContainer =
+      html.window.document.getElementById('app-container');
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +64,13 @@ class _HoverWidgetState<T> extends State<HoverWidget<T>> {
         setState(() {
           _hover = false;
         });
-        _appContainer.style.cursor='default';
+        _appContainer.style.cursor = 'default';
       },
       onEnter: (e) {
         setState(() {
           _hover = true;
         });
-        _appContainer.style.cursor =widget.hoverPointer??'pointer';
+        _appContainer.style.cursor = widget.hoverPointer ?? 'pointer';
       },
       child: widget.builder(context, _value),
     );
@@ -109,16 +113,14 @@ class HoverDoubleWidget extends HoverWidget<double> {
 }
 
 class HoverBoolWidget extends HoverWidget<bool> {
-  const HoverBoolWidget({
-    Key key,
-    @required HoverBuilder<bool> builder,
-    String hoverPointer
-  }) : super(
+  const HoverBoolWidget(
+      {Key key, @required HoverBuilder<bool> builder, String hoverPointer})
+      : super(
           key: key,
           value: false,
           hoverValue: true,
           builder: builder,
-      hoverPointer:hoverPointer,
+          hoverPointer: hoverPointer,
         );
 }
 
@@ -179,7 +181,7 @@ class HoverText extends StatefulWidget {
     this.hoverColor,
     this.hover,
     this.onTap,
-    this.hoverPointer='pointer',
+    this.hoverPointer = 'pointer',
   }) : super(key: key);
 
   @override
@@ -188,7 +190,8 @@ class HoverText extends StatefulWidget {
 
 class __HoverTextState extends State<HoverText> {
   bool hover = false;
-  static final _appContainer = html.window.document.getElementById('app-container');
+  static final _appContainer =
+      html.window.document.getElementById('app-container');
 
   @override
   Widget build(BuildContext context) {
@@ -197,13 +200,13 @@ class __HoverTextState extends State<HoverText> {
         setState(() {
           hover = true;
         });
-        _appContainer.style.cursor =widget.hoverPointer;
+        _appContainer.style.cursor = widget.hoverPointer;
       },
       onExit: (e) {
         setState(() {
           hover = false;
         });
-        _appContainer.style.cursor='default';
+        _appContainer.style.cursor = 'default';
       },
       child: GestureDetector(
         onTap: widget.onTap,
