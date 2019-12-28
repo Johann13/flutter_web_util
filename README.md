@@ -1,6 +1,6 @@
 # flutter_web_util
 
-Widgets that help building responsive Flutter websites and other Flutter for Web specific widgets.
+Flutter for Web specific widgets.
 
 ## Getting Started
 
